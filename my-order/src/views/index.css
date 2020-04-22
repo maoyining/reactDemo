@@ -1,0 +1,43 @@
+.ui-index-body{
+  background-color: #fff;
+  height:100%;
+  position:absolute;
+  left:0;
+  right:0
+}
+.ui-index-picture{
+  width:120px;
+  height:120px;
+  background-color: cadetblue;
+  border-radius: 50%;
+  position:absolute;
+  top:30%;
+  left:50%;
+  transform:translateX(-50%);
+  background-image: url(/assets/img/dog2.jpg);
+}
+
+.ui-index-picture:hover{
+  box-shadow:  0 0px 10px 0 rgba(0, 64, 128, 0.219)
+}
+
+.ui-index-des{
+  position:absolute;
+  top:55%;
+  left:50%;
+  transform:translateX(-50%);
+  text-align: center;
+}
+
+.ui-index-box{
+  position:absolute;
+  top:65%;
+  left:50%;
+  width:100%;
+  transform:translateX(-50%);
+  text-align: center;
+}
+.ui-index-item{
+  display:inline-block;
+  margin-left:10px;
+}

@@ -1,0 +1,16 @@
+.ui-button-wrapper{
+  width:100px;
+  height:45px;
+  display: inline-block;
+}
+.ui-button-wrapper button{
+  border-radius: 5px;
+  width:100px;
+  height:45px;
+  cursor: pointer;
+  font-size:15px;
+  color:#fff;
+  border:solid 1px;
+  background-color: cadetblue;
+  display:inline-block;
+}

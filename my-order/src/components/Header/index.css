@@ -1,0 +1,30 @@
+.ui-header-wrapper{
+  line-height:50px;
+  background-color: #fff;
+  position:fixed;
+  left:0;
+  right:0;
+  box-shadow: 0 5px 10px 0 rgba(0,64,128,.05);
+}
+
+.ui-header-gitlogo{
+  width:10%;
+  text-decoration: none;
+  display:inline-block;
+  vertical-align:middle;
+}
+.ui-header-gitlogo img{
+  width:32px;
+  height:32px;
+  display:block;
+  margin:0 auto;
+}
+
+.ui-header-name{
+  display: inline-block;
+  margin-left:3%;
+}
+
+.ui-header-right{
+  font-size: 14px;
+}
