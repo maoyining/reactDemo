@@ -1,59 +1,58 @@
-// Fragments 可以让你聚合一个子元素列表，并且不在DOM中增加额外节点。
-import React, { Component } from 'react';
-import store from "./store";
-import { getChangeInputAction, getAddItemAction, getDeleteItemAction, initListAction, getToDoList, getInitList } from './store/actionCreator'
-import TodoListUI from './TodoListUI';
+import React from 'react';
+import { connect } from 'react-redux'
+import { getChangeInputAction, getAddItemAction, getDeleteItemAction } from './store/actionCreator';
 
-//容器组件，聪明组件
-class TodoList extends Component {
-  //最优先执行的函数 
-  constructor(props) {
-    super(props);
-    this.state = store.getState()
-    this.handleStoreChange = this.handleStoreChange.bind(this)
-    store.subscribe(this.handleStoreChange)
-    this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleItemdelete = this.handleItemdelete.bind(this)
-  }
+//UI组件、无状态组件
+function TodoList(props) {
+  //解构赋值
+  const { inputValue, handleInputChange, handleClick,handleDelete,list } = props
+  return (
+    <div>
+      <div>
+        <input value={inputValue} onChange={handleInputChange}></input>
+        <button onClick={handleClick}>提交</button>
+      </div>
+      <div>
+        <ul>
+          {
+            list.map((item, index) => {
+              return (<li key={index} onClick={() => { handleDelete(index) }}>{item}</li>)
+            })  
+          }
+        </ul>
+      </div>
 
-  render() {
-    return (
-      <TodoListUI 
-        inputValue={this.state.inputValue}
-        handleInputChange={this.handleInputChange}
-        handleSubmit={this.handleSubmit}
-        list={this.state.list}
-        handleItemdelete={this.handleItemdelete}>
-      </TodoListUI>
-    );
-  }
-  componentDidMount(){
-     //const action=getToDoList()
-     //store.dispatch(action)
-     const action = getInitList()
-     console.log(action)
-     store.dispatch(action)
-  }
-  handleStoreChange() {
-    this.setState(store.getState())
-  }
-  handleInputChange(e) {
-    const value = e.target.value
-    const action = getChangeInputAction(value)
-    store.dispatch(action)
-  }
+    </div>
+  )
+}
 
-  handleSubmit() {
-    const action = getAddItemAction(this.state.inputValue)
-    store.dispatch(action)
-  }
-  handleItemdelete(index) {
-    const action = getDeleteItemAction(index)
-    store.dispatch(action)
+//规则，store里面的数据映射给组件里的props
+//这个state指的是store里的state
+//在组件里要使用这个值的话就要使用this.props.inputValue
+const mapStateToProps = (state) => {
+  console.log(state.inputValue)
+  return {
+    inputValue: state.inputValue,
+    list: state.list
   }
 }
 
-export default TodoList;
-
-//
+//store.dispatch方法挂载到props上
+const mapDispatchToProps = (dispatch) => ({
+  handleInputChange(e) {
+    //console.log(e.target.value)
+    const action = getChangeInputAction(e.target.value)
+    dispatch(action)
+  },
+  handleClick() {
+    const action = getAddItemAction()
+    dispatch(action)
+  },
+  handleDelete(index) {
+    console.log(index)
+    const action = getDeleteItemAction(index)
+    dispatch(action)
+  }
+})
+//让组件todoList和store做连接
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
